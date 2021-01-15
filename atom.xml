@@ -3,11 +3,11 @@
   <title>Zhuoxuan Liu</title>
   
   <subtitle>刘卓轩</subtitle>
-  <link href="http://steerer.site/blog/atom.xml" rel="self"/>
+  <link href="http://steerer.site/atom.xml" rel="self"/>
   
-  <link href="http://steerer.site/blog/"/>
+  <link href="http://steerer.site/"/>
   <updated>2021-01-15T12:05:46.973Z</updated>
-  <id>http://steerer.site/blog/</id>
+  <id>http://steerer.site/</id>
   
   <author>
     <name>Zhuoxuan Liu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Research Diary Prologue</title>
-    <link href="http://steerer.site/blog/2021/01/15/Research-Diary/"/>
-    <id>http://steerer.site/blog/2021/01/15/Research-Diary/</id>
+    <link href="http://steerer.site/2021/01/15/Research-Diary/"/>
+    <id>http://steerer.site/2021/01/15/Research-Diary/</id>
     <published>2021-01-15T09:43:47.000Z</published>
     <updated>2021-01-15T12:05:46.973Z</updated>
     
