@@ -52,8 +52,7 @@
 	
 		<h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p>
 <p>This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.</p>
-<h3 id="Related-structure"><a href="#Related-structure" class="headerlink" title="Related structure"></a>Related structure</h3><p>The lock consists of (1) a single bit that serves the role of “the lock” and (2) a version number for detecting conflicts.</p>
-
+		<p><a class="article__read-more-link" href="/2021/01/16/Concurrency-in-Dash/">...read more</a></p>
 	
 
 	
