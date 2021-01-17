@@ -46,12 +46,12 @@
 	
 
 	
-		<h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p>
+		<h2 id="Bucket-Level"><a href="#Bucket-Level" class="headerlink" title="Bucket Level"></a>Bucket Level</h2><h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p>
 <p>This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.</p>
 <a id="more"></a>
 
 <h3 id="Related-structure"><a href="#Related-structure" class="headerlink" title="Related structure"></a>Related structure</h3><p>The lock consists of (1) a single bit that serves the role of “the lock” and (2) a version number for detecting conflicts.</p>
-
+<h2 id="Directory-Level"><a href="#Directory-Level" class="headerlink" title="Directory Level"></a>Directory Level</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> lock; <span class="comment">// the MSB is the lock bit; remaining bits are used as the counter</span></span><br></pre></td></tr></table></figure>
 	
 
 	

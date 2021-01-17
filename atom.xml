@@ -6,7 +6,7 @@
   <link href="https://steerer.site/atom.xml" rel="self"/>
   
   <link href="https://steerer.site/"/>
-  <updated>2021-01-16T11:20:06.951Z</updated>
+  <updated>2021-01-17T06:21:54.697Z</updated>
   <id>https://steerer.site/</id>
   
   <author>
@@ -17,16 +17,64 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Overflow in Dash</title>
+    <link href="https://steerer.site/2021/01/17/Overflow-in-Dash/"/>
+    <id>https://steerer.site/2021/01/17/Overflow-in-Dash/</id>
+    <published>2021-01-17T06:11:44.000Z</published>
+    <updated>2021-01-17T06:21:54.697Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Composition-of-1-Segment"><a href="#Composition-of-1-Segment" class="headerlink" title="Composition of 1 Segment"></a>Composition of 1 Segment</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">constexpr</span> <span class="keyword">size_t</span> kNumBucket =</span><br><span class="line">    <span class="number">64</span>; <span class="comment">/* the number of normal buckets in one segment*/</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">size_t</span> stashBucket =</span><br><span class="line">    <span class="number">2</span>; <span class="comment">/* the number of stash buckets in one segment*/</span></span><br></pre></td></tr></table></figure><p>Stash Bucket is the same as normal buckets.</p><p><strong><em>Refer to the Bucket Layout</em></strong></p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint8_t</span> overflowBitmap;</span><br><span class="line"><span class="keyword">uint8_t</span> overflowIndex;</span><br><span class="line"><span class="keyword">uint8_t</span> overflowMember; <span class="comment">/*overflowmember indicates membership of the overflow</span></span><br><span class="line"><span class="comment">                           fingerprint*/</span></span><br><span class="line"><span class="keyword">uint8_t</span> overflowCount;</span><br></pre></td></tr></table></figure><a id="more"></a><p>What I can not understand is when to search or scan in the stash buckets.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Determine whether to search in the stash buckets</span></span><br><span class="line"><span class="comment"># Note that version lock check is omitted below</span></span><br><span class="line"><span class="keyword">if</span> probing bucket.overflow_count <span class="keyword">is</span> zero:</span><br><span class="line">    <span class="keyword">if</span> key matches overflow fingerprints:</span><br><span class="line">        search corresponding stash buckets <span class="keyword">and</span> <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> NULL</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    Search by scanning the stash buckets <span class="keyword">and</span> <span class="keyword">return</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;Composition-of-1-Segment&quot;&gt;&lt;a href=&quot;#Composition-of-1-Segment&quot; class=&quot;headerlink&quot; title=&quot;Composition of 1 Segment&quot;&gt;&lt;/a&gt;Composition of 1 Segment&lt;/h3&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;constexpr&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;size_t&lt;/span&gt; kNumBucket =&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;number&quot;&gt;64&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;/* the number of normal buckets in one segment*/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;constexpr&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;size_t&lt;/span&gt; stashBucket =&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;/* the number of stash buckets in one segment*/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Stash Bucket is the same as normal buckets.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Refer to the Bucket Layout&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;uint8_t&lt;/span&gt; overflowBitmap;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;uint8_t&lt;/span&gt; overflowIndex;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;uint8_t&lt;/span&gt; overflowMember; &lt;span class=&quot;comment&quot;&gt;/*overflowmember indicates membership of the overflow&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;                           fingerprint*/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;uint8_t&lt;/span&gt; overflowCount;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    
+    <category term="NVM" scheme="https://steerer.site/tags/NVM/"/>
+    
+    <category term="Index" scheme="https://steerer.site/tags/Index/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Recovery in Dash</title>
+    <link href="https://steerer.site/2021/01/17/Recovery-in-Dash/"/>
+    <id>https://steerer.site/2021/01/17/Recovery-in-Dash/</id>
+    <published>2021-01-17T03:11:43.000Z</published>
+    <updated>2021-01-17T04:50:33.623Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint64_t</span> crash_version; </span><br><span class="line"><span class="comment">/*when the crash version equals to 0Xff =&gt; set the crash</span></span><br><span class="line"><span class="comment">version as 0, set the version of all entries as 1*/</span></span><br><span class="line"><span class="keyword">bool</span> clean;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;li</summary>
+      
+    
+    
+    
+    
+    <category term="NVM" scheme="https://steerer.site/tags/NVM/"/>
+    
+    <category term="Index" scheme="https://steerer.site/tags/Index/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Concurrency in Dash</title>
     <link href="https://steerer.site/2021/01/16/Concurrency-in-Dash/"/>
     <id>https://steerer.site/2021/01/16/Concurrency-in-Dash/</id>
     <published>2021-01-16T04:31:22.000Z</published>
-    <updated>2021-01-16T11:20:06.951Z</updated>
+    <updated>2021-01-17T04:50:04.354Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p><p>This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.</p><a id="more"></a><h3 id="Related-structure"><a href="#Related-structure" class="headerlink" title="Related structure"></a>Related structure</h3><p>The lock consists of (1) a single bit that serves the role of “the lock” and (2) a version number for detecting conflicts.</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="Bucket-Level"><a href="#Bucket-Level" class="headerlink" title="Bucket Level"></a>Bucket Level</h2><h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p><p>This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.</p><a id="more"></a><h3 id="Related-structure"><a href="#Related-structure" class="headerlink" title="Related structure"></a>Related structure</h3><p>The lock consists of (1) a single bit that serves the role of “the lock” and (2) a version number for detecting conflicts.</p><h2 id="Directory-Level"><a href="#Directory-Level" class="headerlink" title="Directory Level"></a>Directory Level</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint32_t</span> lock; <span class="comment">// the MSB is the lock bit; remaining bits are used as the counter</span></span><br></pre></td></tr></table></figure>]]></content>
     
     
-    <summary type="html">&lt;h3 id=&quot;Design-principle&quot;&gt;&lt;a href=&quot;#Design-principle&quot; class=&quot;headerlink&quot; title=&quot;Design principle&quot;&gt;&lt;/a&gt;Design principle&lt;/h3&gt;&lt;p&gt;Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.&lt;/p&gt;
+    <summary type="html">&lt;h2 id=&quot;Bucket-Level&quot;&gt;&lt;a href=&quot;#Bucket-Level&quot; class=&quot;headerlink&quot; title=&quot;Bucket Level&quot;&gt;&lt;/a&gt;Bucket Level&lt;/h2&gt;&lt;h3 id=&quot;Design-principle&quot;&gt;&lt;a href=&quot;#Design-principle&quot; class=&quot;headerlink&quot; title=&quot;Design principle&quot;&gt;&lt;/a&gt;Design principle&lt;/h3&gt;&lt;p&gt;Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.&lt;/p&gt;
 &lt;p&gt;This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.&lt;/p&gt;</summary>
     
     
