@@ -110,6 +110,7 @@
 	
 		<h2 id="Bucket-Level"><a href="#Bucket-Level" class="headerlink" title="Bucket Level"></a>Bucket Level</h2><h3 id="Design-principle"><a href="#Design-principle" class="headerlink" title="Design principle"></a>Design principle</h3><p>Insert operations will follow traditional bucket-level locking to lock the affected buckets. Search operations are allowed to proceed with-out holding any locks (thus avoiding writes to PM) but need to verify the read record.</p>
 <p>This lock-free read design requires segment deallocation (due to merge) happen only after no readers are (and will be) using the segment.</p>
+<p>“Real”probings (search/insert) proceed without reading the directory lock but again need to verify that they entered the right segment by rereading the directory to test whether these two read results match; if not, the thread aborts and retries the entire operation.</p>
 		<p><a class="article__read-more-link" href="/2021/01/16/Concurrency-in-Dash/">...read more</a></p>
 	
 
@@ -182,6 +183,8 @@
 		<div class="footer-credit">
 			<span>© 2021 Zhuoxuan Liu | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/HoverBaum/meilidu-hexo">MeiliDu</a></span>
 		</div>
+
+	<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=dzXYqPayt4gI0kfYjGujDxjF-q8-IjQl8-YmKLNArf4&cl=ffffff&w=a"></script>
 
 	</div>
 
