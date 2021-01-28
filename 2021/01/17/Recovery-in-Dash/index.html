@@ -47,6 +47,10 @@
 
 	
 		<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint64_t</span> crash_version; </span><br><span class="line"><span class="comment">/*when the crash version equals to 0Xff =&gt; set the crash</span></span><br><span class="line"><span class="comment">version as 0, set the version of all entries as 1*/</span></span><br><span class="line"><span class="keyword">bool</span> clean;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>这边写在外面干嘛,就TM离谱</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> <span class="built_in">std</span>::atomic&lt;<span class="keyword">uint32_t</span>&gt; TlsTablePool&lt;T&gt;::all_allocated(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> Table&lt;T&gt; *TlsTablePool&lt;T&gt;::all_tables = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> PMEMoid TlsTablePool&lt;T&gt;::p_all_tables = OID_NULL;</span><br></pre></td></tr></table></figure>
 	
 
 	
